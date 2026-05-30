@@ -7,13 +7,14 @@
 import Foundation
 
 enum AppSecrets {
-    static var weatherAPIKey: String {
-        guard let value = Bundle.main.object(forInfoDictionaryKey: "WEATHER_API_KEY") as? String,
-              !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              value != "YOUR_API_KEY_HERE"
-        else {
-            fatalError("Missing WEATHER_API_KEY. Set it in Secrets.xcconfig.")
+    static var weatherAPIKey: String? {
+        guard let value = Bundle.main.object(forInfoDictionaryKey: "WEATHER_API_KEY") as? String else {
+            return nil
         }
-        return value
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty, trimmed != "YOUR_API_KEY_HERE" else {
+            return nil
+        }
+        return trimmed
     }
 }

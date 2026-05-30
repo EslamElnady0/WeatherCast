@@ -12,6 +12,7 @@ enum APIError: Error, LocalizedError {
     case decodingError(Error)
     case serverError(Int, String?)
     case noInternet
+    case missingAPIKey
 
     var errorDescription: String? {
         switch self {
@@ -23,6 +24,8 @@ enum APIError: Error, LocalizedError {
             return "Server error \(code)."
         case .noInternet:
             return "No internet connection."
+        case .missingAPIKey:
+            return "Missing WEATHER_API_KEY. Set it in Secrets.xcconfig."
         }
     }
 }
@@ -30,18 +33,20 @@ enum APIError: Error, LocalizedError {
 final class APIClient {
     static let shared = APIClient()
 
-    private let apiKey = AppSecrets.weatherAPIKey
-
     private init() {}
 
     func request<T: Decodable>(endpoint: Endpoint) async throws -> T {
+        guard let apiKey = AppSecrets.weatherAPIKey else {
+            throw APIError.missingAPIKey
+        }
+
         var params = endpoint.parameters?.toDict() ?? [:]
         params["key"] = apiKey
 
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(
                 endpoint.fullURL,
-                method: .get,
+                method: endpoint.method.alamofireMethod,
                 parameters: params,
                 encoding: URLEncoding.default
             )
@@ -63,6 +68,17 @@ final class APIClient {
                     }
                 }
             }
+        }
+    }
+}
+
+private extension HTTPMethod {
+    var alamofireMethod: Alamofire.HTTPMethod {
+        switch self {
+        case .get:
+            return .get
+        case .post:
+            return .post
         }
     }
 }
