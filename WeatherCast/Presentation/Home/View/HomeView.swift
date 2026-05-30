@@ -8,6 +8,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Bindable var viewModel: HomeViewModel
+    let mapUseCase: MapUseCaseProtocol
     @Environment(\.weatherTheme) private var theme
     @Environment(\.scenePhase) private var scenePhase
 
@@ -55,6 +56,24 @@ struct HomeView: View {
         .onChange(of: scenePhase) { _, newPhase in
             guard newPhase == .active else { return }
             Task { await viewModel.loadAll() }
+        }
+        .toolbar {
+            if case .loaded = viewModel.state {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        MapView(
+                            viewModel: MapViewModel(
+                                mapUseCase: mapUseCase,
+                                onLocationSaved: {
+                                    Task { await viewModel.loadAll() }
+                                }
+                            )
+                        )
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         }
     }
 

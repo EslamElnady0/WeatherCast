@@ -12,7 +12,7 @@ struct WeatherPageView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
+            VStack(spacing: 8) {
                 topSection
                 forecastSection
                 bottomSection

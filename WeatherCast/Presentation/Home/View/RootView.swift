@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RootView: View {
     @State private var viewModel: HomeViewModel
+    private let mapUseCase: MapUseCaseProtocol
 
     init(context: ModelContext) {
         let remote = WeatherRemoteDataSource(client: .shared)
@@ -21,17 +22,22 @@ struct RootView: View {
             weatherRepository: repository,
             settingsRepository: settingsRepository
         )
-
-        _viewModel = State(
-            wrappedValue: HomeViewModel(
-                homeUseCase: homeUseCase
-            )
+        let mapUseCase = MapUseCase(
+            weatherRepository: repository,
+            settingsRepository: settingsRepository
         )
+        let homeViewModel = HomeViewModel(homeUseCase: homeUseCase)
+
+        _viewModel = State(wrappedValue: homeViewModel)
+        self.mapUseCase = mapUseCase
     }
 
     var body: some View {
         NavigationStack {
-            HomeView(viewModel: viewModel)
+            HomeView(
+                viewModel: viewModel,
+                mapUseCase: mapUseCase
+            )
         }
     }
 }
