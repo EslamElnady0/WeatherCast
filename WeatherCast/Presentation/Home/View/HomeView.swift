@@ -9,6 +9,7 @@ import SwiftUI
 struct HomeView: View {
     @Bindable var viewModel: HomeViewModel
     @Environment(\.weatherTheme) private var theme
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
@@ -23,12 +24,14 @@ struct HomeView: View {
             case .needsLocationPermission:
                 NoLocationView(
                     title: "Location permission needed",
-                    message: "Allow location access to show weather for your current city."
+                    message: "Allow location access to show weather for your current city.",
+                    primaryAction: .requestPermission(viewModel.requestLocationPermission)
                 )
             case .locationUnavailable:
                 NoLocationView(
                     title: "Location unavailable",
-                    message: "Choose a simulator location or add a saved city."
+                    message: "Enable location access in Settings or add a saved city.",
+                    primaryAction: .openSettings
                 )
             case .empty:
                 HomeStateMessageView(
@@ -48,6 +51,10 @@ struct HomeView: View {
         }
         .task {
             await viewModel.loadAll()
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            guard newPhase == .active else { return }
+            Task { await viewModel.loadAll() }
         }
     }
 

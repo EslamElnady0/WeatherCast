@@ -59,4 +59,11 @@ final class HomeViewModel {
         }
     }
 
+    func requestLocationPermission() {
+        Task {
+            state = .loading
+            apply(await homeUseCase.requestLocationPermission())
+        }
+    }
+
 }

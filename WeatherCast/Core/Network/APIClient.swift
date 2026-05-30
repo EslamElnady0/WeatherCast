@@ -42,7 +42,6 @@ final class APIClient {
 
         var params = endpoint.parameters?.toDict() ?? [:]
         params["key"] = apiKey
-        print(params.toQueryString())
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(
                 endpoint.fullURL,
@@ -58,7 +57,6 @@ final class APIClient {
                 case .failure(let afError):
                     if let statusCode = response.response?.statusCode {
                         let body = String(data: response.data ?? Data(), encoding: .utf8)
-                        print(body)
                         continuation.resume(throwing: APIError.serverError(statusCode, body))
                     } else if afError.isSessionTaskError {
                         continuation.resume(throwing: APIError.noInternet)

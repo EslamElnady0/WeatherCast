@@ -16,6 +16,7 @@ enum HomeLoadResult {
 
 protocol HomeUseCaseProtocol {
     func loadHome() async -> HomeLoadResult
+    func requestLocationPermission() async -> HomeLoadResult
     func removeLocation(_ location: SavedLocationModel) async -> HomeLoadResult
 }
 
@@ -79,6 +80,11 @@ final class HomeUseCase: HomeUseCaseProtocol {
             return .failed(message: error.localizedDescription)
         }
 
+        return await loadHome()
+    }
+
+    func requestLocationPermission() async -> HomeLoadResult {
+        settingsRepository.requestLocationIfNeeded()
         return await loadHome()
     }
 

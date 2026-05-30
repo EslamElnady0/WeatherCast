@@ -38,7 +38,6 @@ final class LocationManager: NSObject, LocationManagerProtocol, CLLocationManage
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentCoordinate = locations.last?.coordinate
-        print( "\(currentCoordinate?.longitude) \(currentCoordinate?.longitude)" )
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
