@@ -15,16 +15,16 @@ struct WeatherByCoordParams: RequestParameters {
     let lng: Double
     let days: Int
     let lang: String
-    let aqi: String
-    let alerts: String
+//    let aqi: String
+//    let alerts: String
 
     func toDict() -> [String: Any] {
         [
             "q": "\(lat),\(lng)",
             "days": days,
             "lang": lang,
-            "aqi": aqi,
-            "alerts": alerts
+//            "aqi": aqi,
+//            "alerts": alerts
         ]
     }
 }

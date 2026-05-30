@@ -22,8 +22,6 @@ final class WeatherRemoteDataSource: WeatherRemoteDataSourceProtocol {
                 lng: lng,
                 days: 3,
                 lang: "en",
-                aqi: "no",
-                alerts: "no"
             )
         )
         return try await client.request(endpoint: endpoint)
@@ -36,8 +34,6 @@ final class WeatherRemoteDataSource: WeatherRemoteDataSourceProtocol {
                 lng: lng,
                 days: 1,
                 lang: "en",
-                aqi: "no",
-                alerts: "no"
             )
         )
         return try await client.request(endpoint: endpoint)
