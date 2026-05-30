@@ -1,0 +1,26 @@
+//  NoLocationView.swift
+//  WeatherCast
+//
+//  Created by Eslam Elnady on 30/05/2026.
+//
+
+import SwiftUI
+
+struct NoLocationView: View {
+    let title: String
+    let message: String
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "location.slash")
+                .font(.largeTitle)
+            Text(title)
+                .font(.headline)
+            Text(message)
+                .font(.subheadline)
+                .multilineTextAlignment(.center)
+                .opacity(0.8)
+        }
+        .padding()
+    }
+}
