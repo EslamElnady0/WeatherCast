@@ -16,6 +16,8 @@ final class WeatherRemoteDataSource: WeatherRemoteDataSourceProtocol {
     func fetchForecast(lat: Double, lng: Double) async throws -> ForecastResponseDTO {
         let endpoint = WeatherEndpoint.forecast(
             params: WeatherByCoordParams(
+               // lat: 30.0444,
+               // lng: 31.2357,
                 lat: lat,
                 lng: lng,
                 days: 3,
