@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		085D35CD2FCB671900FE95FA /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 085D35CC2FCB671900FE95FA /* Swinject */; };
+		085D35D02FCB67B000FE95FA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 085D35CF2FCB67B000FE95FA /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		085D356C2FCB58F800FE95FA /* WeatherCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F1A00012FD1A00100AA0001 /* Secrets.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.example.xcconfig; sourceTree = "<group>"; };
@@ -25,6 +30,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				085D35CD2FCB671900FE95FA /* Swinject in Frameworks */,
+				085D35D02FCB67B000FE95FA /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +76,8 @@
 			);
 			name = WeatherCast;
 			packageProductDependencies = (
+				085D35CC2FCB671900FE95FA /* Swinject */,
+				085D35CF2FCB67B000FE95FA /* Alamofire */,
 			);
 			productName = WeatherCast;
 			productReference = 085D356C2FCB58F800FE95FA /* WeatherCast.app */;
@@ -98,6 +107,10 @@
 			);
 			mainGroup = 085D35632FCB58F800FE95FA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				085D35CB2FCB671900FE95FA /* XCRemoteSwiftPackageReference "Swinject" */,
+				085D35CE2FCB67B000FE95FA /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 085D356D2FCB58F800FE95FA /* Products */;
 			projectDirPath = "";
@@ -264,9 +277,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_WEATHER_API_KEY = "$(WEATHER_API_KEY)";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_WEATHER_API_KEY = "$(WEATHER_API_KEY)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,9 +311,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_WEATHER_API_KEY = "$(WEATHER_API_KEY)";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_WEATHER_API_KEY = "$(WEATHER_API_KEY)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -340,6 +353,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		085D35CB2FCB671900FE95FA /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.0;
+			};
+		};
+		085D35CE2FCB67B000FE95FA /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		085D35CC2FCB671900FE95FA /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 085D35CB2FCB671900FE95FA /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		085D35CF2FCB67B000FE95FA /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 085D35CE2FCB67B000FE95FA /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 085D35642FCB58F800FE95FA /* Project object */;
 }
