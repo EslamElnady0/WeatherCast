@@ -26,7 +26,7 @@ struct WeatherCastApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView(context: sharedModelContainer.mainContext)
         }
         .modelContainer(sharedModelContainer)
     }
