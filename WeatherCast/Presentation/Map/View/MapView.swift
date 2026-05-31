@@ -45,8 +45,9 @@ struct MapView: View {
         }
         .sheet(isPresented: sheetPresentationBinding) {
             WeatherPreviewSheet(viewModel: viewModel)
-                .presentationDetents([.medium])
+                .presentationDetents([.height(250)])
                 .presentationDragIndicator(.visible)
+                .presentationCornerRadius(28)
         }
         .navigationTitle(l10n.mapTitle)
         .navigationBarTitleDisplayMode(.inline)
