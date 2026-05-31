@@ -26,6 +26,8 @@ final class LocaleManager {
     }
 
     private(set) var currentLanguage: AppLanguage
+    private(set) var rootID = UUID()
+    private let defaults: UserDefaults
 
     var locale: Locale {
         Locale(identifier: currentLanguage.rawValue)
@@ -40,6 +42,8 @@ final class LocaleManager {
     }
 
     init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+
         if let savedLanguage = defaults.string(forKey: Self.languageKey),
            let language = AppLanguage(rawValue: savedLanguage) {
             currentLanguage = language
@@ -50,8 +54,12 @@ final class LocaleManager {
     }
 
     func setLanguage(_ language: AppLanguage) {
+        guard language != currentLanguage else { return }
+
         currentLanguage = language
-        UserDefaults.standard.set(language.rawValue, forKey: Self.languageKey)
+        defaults.set(language.rawValue, forKey: Self.languageKey)
+        defaults.synchronize()
+        rootID = UUID()
     }
 
     private static let languageKey = "app_language"

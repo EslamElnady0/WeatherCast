@@ -1,6 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "common.apply" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Apply" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "تطبيق" } }
+      }
+    },
+    "common.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "إلغاء" } }
+      }
+    },
     "%@  ·  %@" : {
       "localizations" : {
         "en" : {
@@ -483,6 +495,18 @@
             "value" : "Language"
           }
         }
+      }
+    },
+    "settings.language.restart.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "WeatherCast will return to the Home screen to apply the new language." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "سيعود WeatherCast إلى الشاشة الرئيسية لتطبيق اللغة الجديدة." } }
+      }
+    },
+    "settings.language.restart.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Change Language?" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "تغيير اللغة؟" } }
       }
     },
     "unit.celsius" : {

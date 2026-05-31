@@ -35,11 +35,16 @@ struct WeatherCastApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
-                .environment(\.viewFactory, ViewFactory())
-                .environment(\.locale, localeManager.locale)
-                .environment(\.layoutDirection, localeManager.isRightToLeft ? .rightToLeft : .leftToRight)
-                .environment(localeManager)
+            ZStack {
+                RootView()
+                    .id(localeManager.rootID)
+                    .transition(.opacity)
+                    .environment(\.viewFactory, ViewFactory())
+                    .environment(\.locale, localeManager.locale)
+                    .environment(\.layoutDirection, localeManager.isRightToLeft ? .rightToLeft : .leftToRight)
+                    .environment(localeManager)
+            }
+            .animation(.easeInOut(duration: 0.3), value: localeManager.rootID)
         }
         .modelContainer(sharedModelContainer)
     }

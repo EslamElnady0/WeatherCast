@@ -58,9 +58,6 @@ struct HomeView: View {
             guard newPhase == .active else { return }
             Task { await viewModel.loadAll() }
         }
-        .onChange(of: localeManager.currentLanguage) {
-            Task { await viewModel.loadAll() }
-        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {

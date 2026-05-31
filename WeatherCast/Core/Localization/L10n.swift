@@ -33,6 +33,10 @@ struct L10n {
     var enableLocation: String { localized("location.enable") }
     var openSettings: String { localized("location.settings") }
     var languageTitle: String { localized("settings.language") }
+    var languageRestartTitle: String { localized("settings.language.restart.title") }
+    var languageRestartBody: String { localized("settings.language.restart.body") }
+    var cancel: String { localized("common.cancel") }
+    var apply: String { localized("common.apply") }
 
     func km(_ value: Int) -> String {
         formatted("unit.km", number(value))
@@ -59,7 +63,7 @@ struct L10n {
     }
 
     private func localized(_ key: String.LocalizationValue) -> String {
-        String(localized: key, locale: locale)
+        String(localized: key, bundle: languageBundle, locale: locale)
     }
 
     private func formatted(_ key: String.LocalizationValue, _ arguments: CVarArg...) -> String {
@@ -70,5 +74,15 @@ struct L10n {
         let formatter = NumberFormatter()
         formatter.locale = locale
         return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
+    }
+
+    private var languageBundle: Bundle {
+        guard let languageCode = locale.language.languageCode?.identifier,
+              let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
+              let bundle = Bundle(path: path) else {
+            return .main
+        }
+
+        return bundle
     }
 }
