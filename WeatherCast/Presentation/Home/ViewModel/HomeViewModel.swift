@@ -20,7 +20,6 @@ enum HomeViewState {
 @Observable
 final class HomeViewModel {
     var forecasts: [ForecastEntity] = []
-    var savedLocations: [SavedLocationModel] = []
     var state: HomeViewState = .idle
     var currentPageIndex: Int = 0
 
@@ -45,17 +44,9 @@ final class HomeViewModel {
             state = .empty
         case .failed(let message):
             state = .error(message)
-        case .loaded(let forecasts, let savedLocations):
+        case .loaded(let forecasts):
             self.forecasts = forecasts
-            self.savedLocations = savedLocations
             state = .loaded
-        }
-    }
-
-    func removeLocation(_ location: SavedLocationModel) {
-        Task {
-            state = .loading
-            apply(await homeUseCase.removeLocation(location))
         }
     }
 
@@ -66,4 +57,13 @@ final class HomeViewModel {
         }
     }
 
+    func selectLocation(at coordinate: LocationCoordinateEntity) {
+        guard let index = forecasts.firstIndex(where: {
+            $0.location.lat == coordinate.lat && $0.location.lng == coordinate.lng
+        }) else {
+            return
+        }
+
+        currentPageIndex = index
+    }
 }

@@ -30,6 +30,10 @@ struct L10n {
     var emptyWeatherTitle: String { localized("home.empty.title") }
     var emptyWeatherBody: String { localized("home.empty.body") }
     var weatherUnavailableTitle: String { localized("home.error.title") }
+    var savedLocationsTitle: String { localized("savedLocations.title") }
+    var savedLocationsEmptyTitle: String { localized("savedLocations.empty.title") }
+    var savedLocationsEmptyBody: String { localized("savedLocations.empty.body") }
+    var savedLocationsWeatherUnavailable: String { localized("savedLocations.weatherUnavailable") }
     var enableLocation: String { localized("location.enable") }
     var openSettings: String { localized("location.settings") }
     var languageTitle: String { localized("settings.language") }

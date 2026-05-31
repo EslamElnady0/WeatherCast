@@ -507,6 +507,30 @@
         }
       }
     },
+    "savedLocations.empty.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a city from the map to keep its latest forecast close at hand." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "أضف مدينة من الخريطة للاحتفاظ بأحدث توقعاتها في متناول يدك." } }
+      }
+    },
+    "savedLocations.empty.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No saved locations" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "لا توجد مواقع محفوظة" } }
+      }
+    },
+    "savedLocations.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved Locations" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "المواقع المحفوظة" } }
+      }
+    },
+    "savedLocations.weatherUnavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weather unavailable" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "الطقس غير متاح" } }
+      }
+    },
     "settings.language.restart.body" : {
       "localizations" : {
         "ar" : {

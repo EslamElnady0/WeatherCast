@@ -68,6 +68,16 @@ struct HomeView: View {
             }
 
             if case .loaded = viewModel.state {
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink {
+                        viewFactory.savedLocations(
+                            onSelect: viewModel.selectLocation
+                        )
+                    } label: {
+                        Image(systemName: "list.bullet")
+                    }
+                }
+
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
                         viewFactory.map(

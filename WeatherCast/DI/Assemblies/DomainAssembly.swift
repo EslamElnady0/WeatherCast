@@ -21,5 +21,11 @@ final class DomainAssembly: Assembly {
                 settingsRepository: resolver.resolve(SettingsRepositoryProtocol.self)!
             )
         }
+
+        container.register(SavedLocationsUseCaseProtocol.self) { resolver in
+            SavedLocationsUseCase(
+                weatherRepository: resolver.resolve(WeatherRepositoryProtocol.self)!
+            )
+        }
     }
 }

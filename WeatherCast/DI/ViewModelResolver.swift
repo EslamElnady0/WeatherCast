@@ -18,4 +18,8 @@ struct ViewModelResolver {
     func map(onLocationSaved: @escaping () -> Void) -> MapViewModel {
         container.resolve(MapViewModel.self, argument: onLocationSaved)
     }
+
+    func savedLocations() -> SavedLocationsViewModel {
+        container.resolve(SavedLocationsViewModel.self)
+    }
 }

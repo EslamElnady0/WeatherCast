@@ -22,6 +22,15 @@ struct ViewFactory {
             viewModel: resolver.map(onLocationSaved: onLocationSaved)
         )
     }
+
+    func savedLocations(
+        onSelect: @escaping (LocationCoordinateEntity) -> Void
+    ) -> SavedLocationsView {
+        SavedLocationsView(
+            viewModel: resolver.savedLocations(),
+            onSelect: onSelect
+        )
+    }
 }
 
 private struct ViewFactoryKey: EnvironmentKey {

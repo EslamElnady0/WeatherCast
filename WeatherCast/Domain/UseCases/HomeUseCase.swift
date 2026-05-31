@@ -10,14 +10,13 @@ enum HomeLoadResult {
     case needsLocationPermission
     case locationUnavailable
     case empty
-    case loaded(forecasts: [ForecastEntity], savedLocations: [SavedLocationModel])
+    case loaded(forecasts: [ForecastEntity])
     case failed(message: String)
 }
 
 protocol HomeUseCaseProtocol {
     func loadHome() async -> HomeLoadResult
     func requestLocationPermission() async -> HomeLoadResult
-    func removeLocation(_ location: SavedLocationModel) async -> HomeLoadResult
 }
 
 final class HomeUseCase: HomeUseCaseProtocol {
@@ -63,7 +62,7 @@ final class HomeUseCase: HomeUseCaseProtocol {
         }
 
         if !forecasts.isEmpty {
-            return .loaded(forecasts: forecasts, savedLocations: savedLocations)
+            return .loaded(forecasts: forecasts)
         }
 
         if let lastError {
@@ -71,16 +70,6 @@ final class HomeUseCase: HomeUseCaseProtocol {
         }
 
         return .empty
-    }
-
-    func removeLocation(_ location: SavedLocationModel) async -> HomeLoadResult {
-        do {
-            try weatherRepository.removeLocation(location)
-        } catch {
-            return .failed(message: error.localizedDescription)
-        }
-
-        return await loadHome()
     }
 
     func requestLocationPermission() async -> HomeLoadResult {

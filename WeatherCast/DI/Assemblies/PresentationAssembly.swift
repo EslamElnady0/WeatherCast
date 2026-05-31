@@ -21,5 +21,11 @@ final class PresentationAssembly: Assembly {
                 onLocationSaved: onLocationSaved
             )
         }
+
+        container.register(SavedLocationsViewModel.self) { resolver in
+            SavedLocationsViewModel(
+                savedLocationsUseCase: resolver.resolve(SavedLocationsUseCaseProtocol.self)!
+            )
+        }
     }
 }
