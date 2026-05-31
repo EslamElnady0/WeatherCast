@@ -31,9 +31,7 @@ enum APIError: Error, LocalizedError {
 }
 
 final class APIClient {
-    static let shared = APIClient()
-
-    private init() {}
+    init() {}
 
     func request<T: Decodable>(endpoint: Endpoint) async throws -> T {
         guard let apiKey = AppSecrets.weatherAPIKey else {

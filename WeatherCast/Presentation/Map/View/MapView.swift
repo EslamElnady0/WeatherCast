@@ -12,10 +12,6 @@ struct MapView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var cameraPosition: MapCameraPosition = .region(Self.fallbackRegion)
 
-    init(viewModel: MapViewModel) {
-        _viewModel = State(wrappedValue: viewModel)
-    }
-
     var body: some View {
         ZStack(alignment: .top) {
             MapReader { proxy in

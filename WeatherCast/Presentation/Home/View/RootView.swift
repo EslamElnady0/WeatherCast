@@ -4,40 +4,14 @@
 //  Created by Eslam Elnady on 30/05/2026.
 //
 
-import SwiftData
 import SwiftUI
 
 struct RootView: View {
-    @State private var viewModel: HomeViewModel
-    private let mapUseCase: MapUseCaseProtocol
-
-    init(context: ModelContext) {
-        let remote = WeatherRemoteDataSource(client: .shared)
-        let local = WeatherLocalDataSource(context: context)
-        let repository = WeatherRepositoryImpl(remote: remote, local: local, network: .shared)
-        let locationManager = LocationManager()
-        let settingsLocalDataSource = SettingsLocalDataSource(locationManager: locationManager)
-        let settingsRepository = SettingsRepositoryImpl(localDataSource: settingsLocalDataSource)
-        let homeUseCase = HomeUseCase(
-            weatherRepository: repository,
-            settingsRepository: settingsRepository
-        )
-        let mapUseCase = MapUseCase(
-            weatherRepository: repository,
-            settingsRepository: settingsRepository
-        )
-        let homeViewModel = HomeViewModel(homeUseCase: homeUseCase)
-
-        _viewModel = State(wrappedValue: homeViewModel)
-        self.mapUseCase = mapUseCase
-    }
+    @Environment(\.viewFactory) private var viewFactory
 
     var body: some View {
         NavigationStack {
-            HomeView(
-                viewModel: viewModel,
-                mapUseCase: mapUseCase
-            )
+            viewFactory.home()
         }
     }
 }

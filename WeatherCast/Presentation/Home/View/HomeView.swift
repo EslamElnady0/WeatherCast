@@ -7,8 +7,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Bindable var viewModel: HomeViewModel
-    let mapUseCase: MapUseCaseProtocol
+    @State private var viewModel: HomeViewModel
+    @Environment(\.viewFactory) private var viewFactory
     @Environment(\.weatherTheme) private var theme
     @Environment(\.scenePhase) private var scenePhase
 
@@ -61,13 +61,10 @@ struct HomeView: View {
             if case .loaded = viewModel.state {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
-                        MapView(
-                            viewModel: MapViewModel(
-                                mapUseCase: mapUseCase,
-                                onLocationSaved: {
-                                    Task { await viewModel.loadAll() }
-                                }
-                            )
+                        viewFactory.map(
+                            onLocationSaved: {
+                                Task { await viewModel.loadAll() }
+                            }
                         )
                     } label: {
                         Image(systemName: "plus")

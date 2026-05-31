@@ -9,7 +9,7 @@ import Foundation
 final class WeatherRemoteDataSource: WeatherRemoteDataSourceProtocol {
     private let client: APIClient
 
-    init(client: APIClient = .shared) {
+    init(client: APIClient) {
         self.client = client
     }
 

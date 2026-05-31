@@ -10,7 +10,7 @@ import SwiftData
 
 @main
 struct WeatherCastApp: App {
-    var sharedModelContainer: ModelContainer = {
+    let sharedModelContainer: ModelContainer = {
         let schema = Schema([
             SavedLocationModel.self,
             CachedWeatherModel.self,
@@ -24,9 +24,14 @@ struct WeatherCastApp: App {
         }
     }()
 
+    init() {
+        AppContainer.shared.build(modelContext: sharedModelContainer.mainContext)
+    }
+
     var body: some Scene {
         WindowGroup {
-            RootView(context: sharedModelContainer.mainContext)
+            RootView()
+                .environment(\.viewFactory, ViewFactory())
         }
         .modelContainer(sharedModelContainer)
     }

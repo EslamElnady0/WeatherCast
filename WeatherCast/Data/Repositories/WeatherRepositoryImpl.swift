@@ -14,7 +14,7 @@ final class WeatherRepositoryImpl: WeatherRepositoryProtocol {
     init(
         remote: WeatherRemoteDataSourceProtocol,
         local: WeatherLocalDataSourceProtocol,
-        network: NetworkMonitor = .shared
+        network: NetworkMonitor
     ) {
         self.remote = remote
         self.local = local
