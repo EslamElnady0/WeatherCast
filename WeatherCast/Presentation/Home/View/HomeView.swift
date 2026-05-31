@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var viewModel: HomeViewModel
+    @State var viewModel: HomeViewModel
     @Environment(\.viewFactory) private var viewFactory
     @Environment(LocaleManager.self) private var localeManager
     @Environment(\.weatherTheme) private var theme

@@ -8,7 +8,7 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
-    @State private var viewModel: MapViewModel
+    @State var viewModel: MapViewModel
     @Environment(\.dismiss) private var dismiss
     @Environment(LocaleManager.self) private var localeManager
     @State private var cameraPosition: MapCameraPosition = .region(Self.fallbackRegion)

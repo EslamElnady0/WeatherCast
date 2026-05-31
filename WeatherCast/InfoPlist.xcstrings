@@ -1,18 +1,43 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "NSLocationWhenInUseUsageDescription" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "WeatherCast uses your location to show real-time weather where you are."
+            "state" : "new",
+            "value" : "WeatherCast"
           }
-        },
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "WeatherCast"
+          }
+        }
+      }
+    },
+    "NSLocationWhenInUseUsageDescription" : {
+      "comment" : "Privacy - Location When In Use Usage Description",
+      "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "يستخدم WeatherCast موقعك لعرض الطقس الفوري في مكانك."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeatherCast uses your location to show real-time weather where you are."
           }
         }
       }
