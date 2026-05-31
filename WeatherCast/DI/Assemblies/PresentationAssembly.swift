@@ -8,11 +8,7 @@ import Swinject
 
 final class PresentationAssembly: Assembly {
     func assemble(container: Container) {
-        container.register(LocationManagerProtocol.self) { _ in
-            LocationManager()
-        }
-        .inObjectScope(.container)
-
+        
         container.register(HomeViewModel.self) { resolver in
             HomeViewModel(
                 homeUseCase: resolver.resolve(HomeUseCaseProtocol.self)!
