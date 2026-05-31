@@ -13,6 +13,7 @@ struct SavedLocationForecast {
 
 protocol SavedLocationsUseCaseProtocol {
     func loadSavedLocations() async -> [SavedLocationForecast]
+    func removeLocation(_ location: SavedLocationModel) throws
 }
 
 final class SavedLocationsUseCase: SavedLocationsUseCaseProtocol {
@@ -39,5 +40,9 @@ final class SavedLocationsUseCase: SavedLocationsUseCaseProtocol {
         }
 
         return results
+    }
+
+    func removeLocation(_ location: SavedLocationModel) throws {
+        try weatherRepository.removeLocation(location)
     }
 }

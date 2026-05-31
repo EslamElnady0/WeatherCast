@@ -71,7 +71,10 @@ struct HomeView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationLink {
                         viewFactory.savedLocations(
-                            onSelect: viewModel.selectLocation
+                            onSelect: viewModel.selectLocation,
+                            onLocationsChanged: {
+                                Task { await viewModel.loadAll() }
+                            }
                         )
                     } label: {
                         Image(systemName: "list.bullet")

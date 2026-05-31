@@ -34,6 +34,8 @@ struct L10n {
     var savedLocationsEmptyTitle: String { localized("savedLocations.empty.title") }
     var savedLocationsEmptyBody: String { localized("savedLocations.empty.body") }
     var savedLocationsWeatherUnavailable: String { localized("savedLocations.weatherUnavailable") }
+    var savedLocationsDeleteTitle: String { localized("savedLocations.delete.title") }
+    var savedLocationsDeleteErrorTitle: String { localized("savedLocations.delete.error.title") }
     var enableLocation: String { localized("location.enable") }
     var openSettings: String { localized("location.settings") }
     var languageTitle: String { localized("settings.language") }
@@ -41,6 +43,8 @@ struct L10n {
     var languageRestartBody: String { localized("settings.language.restart.body") }
     var cancel: String { localized("common.cancel") }
     var apply: String { localized("common.apply") }
+    var delete: String { localized("common.delete") }
+    var ok: String { localized("common.ok") }
 
     func km(_ value: Int) -> String {
         formatted("unit.km", number(value))
@@ -64,6 +68,10 @@ struct L10n {
 
     func highLow(high: Int, low: Int) -> String {
         formatted("home.highLow", celsius(high), celsius(low))
+    }
+
+    func savedLocationsDeleteBody(_ locationName: String) -> String {
+        formatted("savedLocations.delete.body", locationName)
     }
 
     private func localized(_ key: String.LocalizationValue) -> String {

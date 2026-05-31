@@ -43,6 +43,38 @@
         }
       }
     },
+    "common.delete" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "common.ok" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حسنًا"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
     "error.decoding" : {
       "localizations" : {
         "ar" : {
@@ -517,6 +549,24 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "No saved locations" } },
         "ar" : { "stringUnit" : { "state" : "translated", "value" : "لا توجد مواقع محفوظة" } }
+      }
+    },
+    "savedLocations.delete.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove %@ from your saved locations?" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "هل تريد إزالة %@ من المواقع المحفوظة؟" } }
+      }
+    },
+    "savedLocations.delete.error.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could Not Delete Location" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "تعذر حذف الموقع" } }
+      }
+    },
+    "savedLocations.delete.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete Saved Location?" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "حذف الموقع المحفوظ؟" } }
       }
     },
     "savedLocations.title" : {

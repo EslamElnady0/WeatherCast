@@ -24,11 +24,13 @@ struct ViewFactory {
     }
 
     func savedLocations(
-        onSelect: @escaping (LocationCoordinateEntity) -> Void
+        onSelect: @escaping (LocationCoordinateEntity) -> Void,
+        onLocationsChanged: @escaping () -> Void
     ) -> SavedLocationsView {
         SavedLocationsView(
             viewModel: resolver.savedLocations(),
-            onSelect: onSelect
+            onSelect: onSelect,
+            onLocationsChanged: onLocationsChanged
         )
     }
 }

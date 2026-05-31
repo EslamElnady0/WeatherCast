@@ -27,6 +27,7 @@ struct SavedLocationRow: Identifiable {
 final class SavedLocationsViewModel {
     private(set) var rows: [SavedLocationRow] = []
     private(set) var state: SavedLocationsViewState = .idle
+    private(set) var deletionErrorMessage: String?
 
     private let savedLocationsUseCase: SavedLocationsUseCaseProtocol
 
@@ -40,5 +41,21 @@ final class SavedLocationsViewModel {
             SavedLocationRow(location: $0.location, forecast: $0.forecast)
         }
         state = rows.isEmpty ? .empty : .loaded
+    }
+
+    func remove(_ row: SavedLocationRow) -> Bool {
+        do {
+            try savedLocationsUseCase.removeLocation(row.location)
+            rows.removeAll { $0.id == row.id }
+            state = rows.isEmpty ? .empty : .loaded
+            return true
+        } catch {
+            deletionErrorMessage = error.localizedDescription
+            return false
+        }
+    }
+
+    func clearDeletionError() {
+        deletionErrorMessage = nil
     }
 }
