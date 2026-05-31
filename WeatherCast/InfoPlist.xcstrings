@@ -1,0 +1,22 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "NSLocationWhenInUseUsageDescription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeatherCast uses your location to show real-time weather where you are."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يستخدم WeatherCast موقعك لعرض الطقس الفوري في مكانك."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

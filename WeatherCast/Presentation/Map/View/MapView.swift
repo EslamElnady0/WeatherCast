@@ -10,6 +10,7 @@ import SwiftUI
 struct MapView: View {
     @State private var viewModel: MapViewModel
     @Environment(\.dismiss) private var dismiss
+    @Environment(LocaleManager.self) private var localeManager
     @State private var cameraPosition: MapCameraPosition = .region(Self.fallbackRegion)
 
     var body: some View {
@@ -17,7 +18,7 @@ struct MapView: View {
             MapReader { proxy in
                 Map(position: $cameraPosition) {
                     if let coordinate = viewModel.state.selectedCoordinate {
-                        Marker("Selected", coordinate: coordinate)
+                        Marker(l10n.selectedLocation, coordinate: coordinate)
                     }
                 }
                 .ignoresSafeArea(edges: .bottom)
@@ -47,7 +48,7 @@ struct MapView: View {
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
         }
-        .navigationTitle("Add Location")
+        .navigationTitle(l10n.mapTitle)
         .navigationBarTitleDisplayMode(.inline)
         .task {
             viewModel.send(.loadInitialPosition)
@@ -68,7 +69,7 @@ struct MapView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
 
-            TextField("Search city...", text: searchQueryBinding)
+            TextField(l10n.searchPlaceholder, text: searchQueryBinding)
                 .autocorrectionDisabled()
 
             if viewModel.state.isSearching {
@@ -122,6 +123,10 @@ struct MapView: View {
             get: { viewModel.state.isSheetPresented },
             set: { viewModel.send(.sheetPresentationChanged($0)) }
         )
+    }
+
+    private var l10n: L10n {
+        L10n(locale: localeManager.locale)
     }
 
     private static let fallbackRegion = MKCoordinateRegion(

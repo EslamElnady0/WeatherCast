@@ -17,13 +17,19 @@ enum APIError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidResponse:
-            return "Invalid server response."
+            return String(localized: "error.invalidResponse")
         case .decodingError(let error):
-            return "Decoding failed: \(error.localizedDescription)"
+            return String(
+                format: String(localized: "error.decoding"),
+                error.localizedDescription
+            )
         case .serverError(let code, _):
-            return "Server error \(code)."
+            return String(
+                format: String(localized: "error.server"),
+                code
+            )
         case .noInternet:
-            return "No internet connection."
+            return String(localized: "error.noInternet")
         case .missingAPIKey:
             return "Missing WEATHER_API_KEY. Set it in Secrets.xcconfig."
         }

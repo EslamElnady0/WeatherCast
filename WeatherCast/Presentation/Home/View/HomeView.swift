@@ -9,6 +9,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var viewModel: HomeViewModel
     @Environment(\.viewFactory) private var viewFactory
+    @Environment(LocaleManager.self) private var localeManager
     @Environment(\.weatherTheme) private var theme
     @Environment(\.scenePhase) private var scenePhase
 
@@ -24,26 +25,26 @@ struct HomeView: View {
                     .tint(theme.foregroundColor)
             case .needsLocationPermission:
                 NoLocationView(
-                    title: "Location permission needed",
-                    message: "Allow location access to show weather for your current city.",
+                    title: l10n.locationPermissionTitle,
+                    message: l10n.locationPermissionBody,
                     primaryAction: .requestPermission(viewModel.requestLocationPermission)
                 )
             case .locationUnavailable:
                 NoLocationView(
-                    title: "Location unavailable",
-                    message: "Enable location access in Settings or add a saved city.",
+                    title: l10n.locationUnavailableTitle,
+                    message: l10n.locationUnavailableBody,
                     primaryAction: .openSettings
                 )
             case .empty:
                 HomeStateMessageView(
                     systemImage: "cloud",
-                    title: "No weather yet",
-                    message: "Add a saved city or allow location access to load a forecast."
+                    title: l10n.emptyWeatherTitle,
+                    message: l10n.emptyWeatherBody
                 )
             case .error(let message):
                 HomeStateMessageView(
                     systemImage: "exclamationmark.triangle",
-                    title: "Weather unavailable",
+                    title: l10n.weatherUnavailableTitle,
                     message: message
                 )
             case .loaded:
@@ -57,7 +58,18 @@ struct HomeView: View {
             guard newPhase == .active else { return }
             Task { await viewModel.loadAll() }
         }
+        .onChange(of: localeManager.currentLanguage) {
+            Task { await viewModel.loadAll() }
+        }
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    LanguagePickerView()
+                } label: {
+                    Image(systemName: "globe")
+                }
+            }
+
             if case .loaded = viewModel.state {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
@@ -72,6 +84,10 @@ struct HomeView: View {
                 }
             }
         }
+    }
+
+    private var l10n: L10n {
+        L10n(locale: localeManager.locale)
     }
 
     private var forecastPager: some View {

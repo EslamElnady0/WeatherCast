@@ -12,7 +12,7 @@ extension ForecastResponseDTO {
         let cur = current
 
         let weather = WeatherEntity(
-            locationName: loc?.name ?? "Unknown",
+            locationName: loc?.name ?? "",
             lat: loc?.lat ?? 0,
             lng: loc?.lon ?? 0,
             tempC: cur?.temp_c ?? 0,

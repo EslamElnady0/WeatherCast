@@ -1,0 +1,204 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "error.decoding" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Decoding failed: %@" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "فشل تحليل البيانات: %@" } }
+      }
+    },
+    "error.invalidResponse" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Invalid server response." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "استجابة الخادم غير صالحة." } }
+      }
+    },
+    "error.noInternet" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No internet connection." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "لا يوجد اتصال بالإنترنت." } }
+      }
+    },
+    "error.server" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Server error %lld." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "خطأ في الخادم %lld." } }
+      }
+    },
+    "home.empty.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a saved city or allow location access to load a forecast." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "أضف مدينة محفوظة أو اسمح بالوصول إلى الموقع لتحميل توقعات الطقس." } }
+      }
+    },
+    "home.empty.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No weather yet" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "لا توجد بيانات طقس بعد" } }
+      }
+    },
+    "home.error.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weather unavailable" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "الطقس غير متاح" } }
+      }
+    },
+    "home.feelsLike" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "FEELS LIKE" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "المحسوسة" } }
+      }
+    },
+    "home.forecast.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "3-DAY FORECAST" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "توقعات 3 أيام" } }
+      }
+    },
+    "home.highLow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "H:%@  L:%@" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "العظمى:%@  الصغرى:%@" } }
+      }
+    },
+    "home.humidity" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "HUMIDITY" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "الرطوبة" } }
+      }
+    },
+    "home.pressure" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "PRESSURE" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "الضغط" } }
+      }
+    },
+    "home.today" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "اليوم" } }
+      }
+    },
+    "home.tomorrow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tomorrow" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "غداً" } }
+      }
+    },
+    "home.visibility" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "VISIBILITY" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "الرؤية" } }
+      }
+    },
+    "hourly.now" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Now" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "الآن" } }
+      }
+    },
+    "location.enable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enable Location" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "تفعيل الموقع" } }
+      }
+    },
+    "location.permission.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Allow location access to show weather for your current city." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "اسمح بالوصول إلى الموقع لعرض طقس مدينتك الحالية." } }
+      }
+    },
+    "location.permission.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Location permission needed" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "يلزم إذن الموقع" } }
+      }
+    },
+    "location.settings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Settings" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "فتح الإعدادات" } }
+      }
+    },
+    "location.unavailable.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enable location access in Settings or add a saved city." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "فعّل الوصول إلى الموقع من الإعدادات أو أضف مدينة محفوظة." } }
+      }
+    },
+    "location.unavailable.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Location unavailable" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "الموقع غير متاح" } }
+      }
+    },
+    "map.addToFav" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add to Favourites" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "أضف إلى المفضلة" } }
+      }
+    },
+    "map.alreadySaved" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Already Saved" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "محفوظ بالفعل" } }
+      }
+    },
+    "map.loading" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Loading weather..." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "جارٍ تحميل الطقس..." } }
+      }
+    },
+    "map.searchPlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search city..." } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "ابحث عن مدينة..." } }
+      }
+    },
+    "map.selectedLocation" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Selected" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "الموقع المحدد" } }
+      }
+    },
+    "map.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add Location" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "إضافة موقع" } }
+      }
+    },
+    "settings.language" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Language" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "اللغة" } }
+      }
+    },
+    "unit.celsius" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@°" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "%@°" } }
+      }
+    },
+    "unit.km" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ km" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "%@ كم" } }
+      }
+    },
+    "unit.percent" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@%%" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "%@%%" } }
+      }
+    },
+    "unit.temperatureRange" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ - %@" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "%@ - %@" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

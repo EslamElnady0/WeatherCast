@@ -8,9 +8,11 @@ import Foundation
 
 final class WeatherRemoteDataSource: WeatherRemoteDataSourceProtocol {
     private let client: APIClient
+    private let localeManager: LocaleManager
 
-    init(client: APIClient) {
+    init(client: APIClient, localeManager: LocaleManager) {
         self.client = client
+        self.localeManager = localeManager
     }
 
     func fetchForecast(lat: Double, lng: Double) async throws -> ForecastResponseDTO {
@@ -21,7 +23,7 @@ final class WeatherRemoteDataSource: WeatherRemoteDataSourceProtocol {
                 lat: lat,
                 lng: lng,
                 days: 3,
-                lang: "en",
+                lang: localeManager.apiLanguage,
             )
         )
         return try await client.request(endpoint: endpoint)
@@ -33,7 +35,7 @@ final class WeatherRemoteDataSource: WeatherRemoteDataSourceProtocol {
                 lat: lat,
                 lng: lng,
                 days: 1,
-                lang: "en",
+                lang: localeManager.apiLanguage,
             )
         )
         return try await client.request(endpoint: endpoint)

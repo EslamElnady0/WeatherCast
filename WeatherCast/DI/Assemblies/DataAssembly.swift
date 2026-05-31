@@ -16,13 +16,11 @@ final class DataAssembly: Assembly {
 
     func assemble(container: Container) {
         
-        container.register(LocationManagerProtocol.self) { _ in
-            LocationManager()
-        }
-        .inObjectScope(.container)
-
         container.register(WeatherRemoteDataSourceProtocol.self) { resolver in
-            WeatherRemoteDataSource(client: resolver.resolve(APIClient.self)!)
+            WeatherRemoteDataSource(
+                client: resolver.resolve(APIClient.self)!,
+                localeManager: resolver.resolve(LocaleManager.self)!
+            )
         }
         .inObjectScope(.container)
 
@@ -42,7 +40,8 @@ final class DataAssembly: Assembly {
             WeatherRepositoryImpl(
                 remote: resolver.resolve(WeatherRemoteDataSourceProtocol.self)!,
                 local: resolver.resolve(WeatherLocalDataSourceProtocol.self)!,
-                network: resolver.resolve(NetworkMonitor.self)!
+                network: resolver.resolve(NetworkMonitor.self)!,
+                localeManager: resolver.resolve(LocaleManager.self)!
             )
         }
         .inObjectScope(.container)

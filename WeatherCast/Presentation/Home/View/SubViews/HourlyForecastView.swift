@@ -9,6 +9,7 @@ import SwiftUI
 struct HourlyForecastView: View {
     let day: ForecastDayEntity
     @Environment(\.weatherTheme) private var theme
+    @Environment(LocaleManager.self) private var localeManager
     
     private var hours: [HourEntity] {
         let now = Int(Date().timeIntervalSince1970)
@@ -36,7 +37,7 @@ struct HourlyForecastView: View {
 
                         Spacer()
 
-                        Text("\(Int(hour.tempC))°")
+                        Text(l10n.celsius(Int(hour.tempC)))
                             .font(.title2).bold()
                     }
                     .foregroundColor(theme.foregroundColor)
@@ -56,10 +57,15 @@ struct HourlyForecastView: View {
     }
 
     private func formattedTime(from epoch: Int, isFirst: Bool) -> String {
-        if isFirst { return "Now" }
+        if isFirst { return l10n.now }
         let date = Date(timeIntervalSince1970: TimeInterval(epoch))
         let formatter = DateFormatter()
+        formatter.locale = localeManager.locale
         formatter.dateFormat = "ha"
         return formatter.string(from: date)
+    }
+
+    private var l10n: L10n {
+        L10n(locale: localeManager.locale)
     }
 }

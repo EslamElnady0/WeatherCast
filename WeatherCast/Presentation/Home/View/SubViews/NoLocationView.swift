@@ -10,6 +10,7 @@ struct NoLocationView: View {
     let title: String
     let message: String
     let primaryAction: PrimaryAction
+    @Environment(LocaleManager.self) private var localeManager
 
     enum PrimaryAction {
         case requestPermission(() -> Void)
@@ -30,7 +31,7 @@ struct NoLocationView: View {
             switch primaryAction {
             case .requestPermission(let action):
                 Button(action: action) {
-                    Label("Enable Location", systemImage: "location.fill")
+                    Label(l10n.enableLocation, systemImage: "location.fill")
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
@@ -38,7 +39,7 @@ struct NoLocationView: View {
                 }
             case .openSettings:
                 Link(destination: settingsURL) {
-                    Label("Open Settings", systemImage: "gear")
+                    Label(l10n.openSettings, systemImage: "gear")
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
@@ -47,7 +48,7 @@ struct NoLocationView: View {
             }
 
             if case .requestPermission = primaryAction {
-                Link("Open Settings", destination: settingsURL)
+                Link(l10n.openSettings, destination: settingsURL)
                     .foregroundColor(.blue)
             }
         }
@@ -56,5 +57,9 @@ struct NoLocationView: View {
 
     private var settingsURL: URL {
         URL(string: UIApplication.openSettingsURLString)!
+    }
+
+    private var l10n: L10n {
+        L10n(locale: localeManager.locale)
     }
 }

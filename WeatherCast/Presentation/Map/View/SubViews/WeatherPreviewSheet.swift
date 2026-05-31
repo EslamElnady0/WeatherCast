@@ -8,12 +8,13 @@ import SwiftUI
 
 struct WeatherPreviewSheet: View {
     @Bindable var viewModel: MapViewModel
+    @Environment(LocaleManager.self) private var localeManager
 
     var body: some View {
         VStack(spacing: 20) {
             switch viewModel.state.previewState {
             case .idle, .loading:
-                ProgressView("Loading weather...")
+                ProgressView(l10n.loadingWeather)
             case .loaded:
                 if let forecast = viewModel.state.previewForecast {
                     forecastContent(forecast)
@@ -32,12 +33,12 @@ struct WeatherPreviewSheet: View {
         VStack(spacing: 8) {
             Text(forecast.location.locationName)
                 .font(.title2).bold()
-            Text("\(Int(forecast.location.tempC))°  ·  \(forecast.location.conditionText)")
+            Text("\(l10n.celsius(Int(forecast.location.tempC)))  ·  \(forecast.location.conditionText)")
                 .font(.title3)
             HStack(spacing: 32) {
-                Label("\(forecast.location.humidity)%", systemImage: "humidity")
-                Label("\(Int(forecast.location.visibilityKm)) km", systemImage: "eye")
-                Label("\(Int(forecast.location.feelsLikeC))°", systemImage: "thermometer")
+                Label(l10n.percent(forecast.location.humidity), systemImage: "humidity")
+                Label(l10n.km(Int(forecast.location.visibilityKm)), systemImage: "eye")
+                Label(l10n.celsius(Int(forecast.location.feelsLikeC)), systemImage: "thermometer")
             }
             .font(.callout)
             .foregroundColor(.secondary)
@@ -47,7 +48,7 @@ struct WeatherPreviewSheet: View {
             viewModel.send(.addToFavourites)
         } label: {
             Label(
-                viewModel.state.isAlreadySaved ? "Already Saved" : "Add to Favourites",
+                viewModel.state.isAlreadySaved ? l10n.alreadySaved : l10n.addToFavourites,
                 systemImage: viewModel.state.isAlreadySaved ? "checkmark.circle.fill" : "star.fill"
             )
             .frame(maxWidth: .infinity)
@@ -58,5 +59,9 @@ struct WeatherPreviewSheet: View {
         }
         .disabled(viewModel.state.isAlreadySaved)
         .padding(.horizontal)
+    }
+
+    private var l10n: L10n {
+        L10n(locale: localeManager.locale)
     }
 }

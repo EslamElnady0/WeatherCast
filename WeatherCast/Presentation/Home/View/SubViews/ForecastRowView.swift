@@ -10,13 +10,14 @@ struct ForecastRowView: View {
     let day: ForecastDayEntity
     let index: Int
     @Environment(\.weatherTheme) private var theme
+    @Environment(LocaleManager.self) private var localeManager
 
     private var label: String {
         switch index {
         case 0:
-            return "Today"
+            return l10n.today
         case 1:
-            return "Tomorrow"
+            return l10n.tomorrow
         default:
             return dayName(from: day.date)
         }
@@ -34,7 +35,7 @@ struct ForecastRowView: View {
 
             Spacer()
 
-            Text("\(Int(day.minTempC))° – \(Int(day.maxTempC))°")
+            Text(l10n.temperatureRange(min: Int(day.minTempC), max: Int(day.maxTempC)))
         }
         .font(.callout)
         .foregroundColor(theme.foregroundColor)
@@ -42,10 +43,18 @@ struct ForecastRowView: View {
     }
 
     private func dayName(from dateString: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        guard let date = formatter.date(from: dateString) else { return dateString }
-        formatter.dateFormat = "EEE"
-        return formatter.string(from: date)
+        let inputFormatter = DateFormatter()
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+        guard let date = inputFormatter.date(from: dateString) else { return dateString }
+
+        let displayFormatter = DateFormatter()
+        displayFormatter.locale = localeManager.locale
+        displayFormatter.dateFormat = "EEE"
+        return displayFormatter.string(from: date)
+    }
+
+    private var l10n: L10n {
+        L10n(locale: localeManager.locale)
     }
 }

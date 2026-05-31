@@ -18,6 +18,7 @@ final class AppContainer {
     func build(modelContext: ModelContext) {
         assembler = Assembler(
             [
+                CoreAssembly(),
                 NetworkAssembly(),
                 DataAssembly(modelContext: modelContext),
                 DomainAssembly(),

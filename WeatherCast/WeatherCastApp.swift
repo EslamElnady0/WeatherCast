@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct WeatherCastApp: App {
+    @State private var localeManager: LocaleManager
+
     let sharedModelContainer: ModelContainer = {
         let schema = Schema([
             SavedLocationModel.self,
@@ -26,12 +28,18 @@ struct WeatherCastApp: App {
 
     init() {
         AppContainer.shared.build(modelContext: sharedModelContainer.mainContext)
+        _localeManager = State(
+            wrappedValue: AppContainer.shared.resolve(LocaleManager.self)
+        )
     }
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environment(\.viewFactory, ViewFactory())
+                .environment(\.locale, localeManager.locale)
+                .environment(\.layoutDirection, localeManager.isRightToLeft ? .rightToLeft : .leftToRight)
+                .environment(localeManager)
         }
         .modelContainer(sharedModelContainer)
     }
