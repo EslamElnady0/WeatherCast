@@ -14,7 +14,10 @@ struct HourlyForecastView: View {
     @Environment(LocaleManager.self) private var localeManager
 
     var body: some View {
-        WeatherBackgroundView(theme: viewModel.theme) {
+        WeatherBackgroundView(
+            theme: viewModel.theme,
+            conditionCode: viewModel.day.conditionCode
+        ) {
             ScrollView {
                 VStack(spacing: 16) {
                     DailyForecastSummaryView(viewModel: viewModel)

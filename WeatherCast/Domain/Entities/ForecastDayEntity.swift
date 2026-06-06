@@ -11,6 +11,7 @@ struct ForecastDayEntity {
     let averageTempC: Double
     let conditionText: String
     let conditionIconURL: String
+    let conditionCode: Int
     let sunrise: String
     let sunset: String
     let hours: [HourEntity]

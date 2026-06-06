@@ -20,6 +20,7 @@ extension ForecastResponseDTO {
             feelsLikeC: cur?.feelslike_c ?? 0,
             conditionText: cur?.condition?.text ?? "",
             conditionIconURL: "https:" + (cur?.condition?.icon ?? ""),
+            conditionCode: cur?.condition?.code ?? 1000,
             humidity: cur?.humidity ?? 0,
             visibilityKm: cur?.vis_km ?? 0,
             pressureMb: cur?.pressure_mb ?? 0,
@@ -40,6 +41,7 @@ extension ForecastDayDTO {
             averageTempC: day?.avgtemp_c ?? 0,
             conditionText: day?.condition?.text ?? "",
             conditionIconURL: "https:" + (day?.condition?.icon ?? ""),
+            conditionCode: day?.condition?.code ?? 1000,
             sunrise: astro?.sunrise ?? "",
             sunset: astro?.sunset ?? "",
             hours: hour?.map { $0.toDomain() } ?? []

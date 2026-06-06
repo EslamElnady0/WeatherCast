@@ -13,6 +13,7 @@ struct WeatherEntity {
     let feelsLikeC: Double
     let conditionText: String
     let conditionIconURL: String
+    let conditionCode: Int
     let humidity: Int
     let visibilityKm: Double
     let pressureMb: Double

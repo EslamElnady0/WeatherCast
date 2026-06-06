@@ -13,7 +13,10 @@ struct HomeView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
-        WeatherBackgroundView(theme: theme) {
+        WeatherBackgroundView(
+            theme: theme,
+            conditionCode: currentConditionCode
+        ) {
             switch viewModel.state {
             case .idle, .loading:
                 ProgressView()
@@ -104,6 +107,16 @@ struct HomeView: View {
         return WeatherTheme(
             isDay: viewModel.forecasts[viewModel.currentPageIndex].location.isDay
         )
+    }
+
+    private var currentConditionCode: Int {
+        guard viewModel.forecasts.indices.contains(viewModel.currentPageIndex) else {
+            return 1000
+        }
+
+        return viewModel.forecasts[viewModel.currentPageIndex]
+            .location
+            .conditionCode
     }
 
     private var forecastPager: some View {
