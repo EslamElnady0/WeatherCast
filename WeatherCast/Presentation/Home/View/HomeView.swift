@@ -13,11 +13,7 @@ struct HomeView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
-        ZStack {
-            Image(theme.backgroundImage)
-                .resizable()
-                .ignoresSafeArea()
-
+        WeatherBackgroundView(theme: theme) {
             switch viewModel.state {
             case .idle, .loading:
                 ProgressView()
@@ -50,7 +46,6 @@ struct HomeView: View {
                 forecastPager
             }
         }
-        .environment(\.weatherTheme, theme)
         .toolbarBackground(.hidden, for: .navigationBar)
         .task {
             await viewModel.loadAll()

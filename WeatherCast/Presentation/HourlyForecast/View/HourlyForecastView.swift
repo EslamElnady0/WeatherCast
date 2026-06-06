@@ -14,11 +14,7 @@ struct HourlyForecastView: View {
     @Environment(LocaleManager.self) private var localeManager
 
     var body: some View {
-        ZStack {
-            Image(viewModel.theme.backgroundImage)
-                .resizable()
-                .ignoresSafeArea()
-
+        WeatherBackgroundView(theme: viewModel.theme) {
             ScrollView {
                 VStack(spacing: 16) {
                     DailyForecastSummaryView(viewModel: viewModel)
@@ -53,7 +49,6 @@ struct HourlyForecastView: View {
                 }
             }
         }
-        .environment(\.weatherTheme, viewModel.theme)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
