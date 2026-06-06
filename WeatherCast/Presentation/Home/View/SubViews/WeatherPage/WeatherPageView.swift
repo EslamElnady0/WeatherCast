@@ -13,58 +13,16 @@ struct WeatherPageView: View {
     @Environment(LocaleManager.self) private var localeManager
 
     var body: some View {
-        ZStack {
-            Image(theme.backgroundImage)
-                .resizable()
-                .ignoresSafeArea()
-
-            ScrollView {
-                VStack(spacing: 8) {
-                    topSection
-                    forecastSection
-                    bottomSection
-                }
-                .padding()
+        ScrollView {
+            VStack(spacing: 8) {
+                HomeWeatherHeaderView(forecast: forecast)
+                forecastSection
+                bottomSection
             }
+            .padding()
         }
         .foregroundColor(theme.foregroundColor)
         .environment(\.weatherTheme, theme)
-    }
-
-    private var topSection: some View {
-        VStack(spacing: 4) {
-            Text(forecast.location.locationName)
-                .font(.title).bold()
-
-            if !forecast.location.localTime.isEmpty {
-                Label(
-                    WeatherDateFormatter.locationTime(
-                        from: forecast.location.localTime,
-                        locale: localeManager.locale
-                    ),
-                    systemImage: "clock"
-                )
-                .font(.callout)
-                .opacity(0.8)
-            }
-
-            Text(l10n.celsius(Int(forecast.location.tempC)))
-                .font(.system(size: 80, weight: .thin))
-
-            Text(forecast.location.conditionText)
-                .font(.title3)
-
-            if let today = forecast.forecastDays.first {
-                Text(l10n.highLow(high: Int(today.maxTempC), low: Int(today.minTempC)))
-                    .font(.callout)
-            }
-
-            AsyncImage(url: URL(string: forecast.location.conditionIconURL)) { image in
-                image.resizable().scaledToFit().frame(width: 64, height: 64)
-            } placeholder: {
-                ProgressView()
-            }
-        }
     }
 
     private var forecastSection: some View {

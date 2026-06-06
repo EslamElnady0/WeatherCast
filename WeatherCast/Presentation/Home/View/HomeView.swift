@@ -51,6 +51,7 @@ struct HomeView: View {
             }
         }
         .environment(\.weatherTheme, theme)
+        .toolbarBackground(.hidden, for: .navigationBar)
         .task {
             await viewModel.loadAll()
         }
