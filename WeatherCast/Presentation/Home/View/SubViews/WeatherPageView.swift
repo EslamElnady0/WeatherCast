@@ -8,25 +8,45 @@ import SwiftUI
 
 struct WeatherPageView: View {
     let forecast: ForecastEntity
-    @Environment(\.weatherTheme) private var theme
+
+    @Environment(\.viewFactory) private var viewFactory
     @Environment(LocaleManager.self) private var localeManager
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 8) {
-                topSection
-                forecastSection
-                bottomSection
+        ZStack {
+            Image(theme.backgroundImage)
+                .resizable()
+                .ignoresSafeArea()
+
+            ScrollView {
+                VStack(spacing: 8) {
+                    topSection
+                    forecastSection
+                    bottomSection
+                }
+                .padding()
             }
-            .padding()
         }
         .foregroundColor(theme.foregroundColor)
+        .environment(\.weatherTheme, theme)
     }
 
     private var topSection: some View {
         VStack(spacing: 4) {
             Text(forecast.location.locationName)
                 .font(.title).bold()
+
+            if !forecast.location.localTime.isEmpty {
+                Label(
+                    WeatherDateFormatter.locationTime(
+                        from: forecast.location.localTime,
+                        locale: localeManager.locale
+                    ),
+                    systemImage: "clock"
+                )
+                .font(.callout)
+                .opacity(0.8)
+            }
 
             Text(l10n.celsius(Int(forecast.location.tempC)))
                 .font(.system(size: 80, weight: .thin))
@@ -57,7 +77,12 @@ struct WeatherPageView: View {
             Divider().opacity(0.3)
 
             ForEach(Array(forecast.forecastDays.prefix(3).enumerated()), id: \.offset) { index, day in
-                NavigationLink(destination: HourlyForecastView(day: day)) {
+                NavigationLink {
+                    viewFactory.hourlyForecast(
+                        day: day,
+                        isDay: forecast.location.isDay
+                    )
+                } label: {
                     ForecastRowView(day: day, index: index)
                 }
                 Divider().opacity(0.3)
@@ -79,5 +104,9 @@ struct WeatherPageView: View {
 
     private var l10n: L10n {
         L10n(locale: localeManager.locale)
+    }
+
+    private var theme: WeatherTheme {
+        WeatherTheme(isDay: forecast.location.isDay)
     }
 }

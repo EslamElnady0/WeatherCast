@@ -13,6 +13,7 @@ extension ForecastResponseDTO {
 
         let weather = WeatherEntity(
             locationName: loc?.name ?? "",
+            localTime: loc?.localtime ?? "",
             lat: loc?.lat ?? 0,
             lng: loc?.lon ?? 0,
             tempC: cur?.temp_c ?? 0,
@@ -36,8 +37,11 @@ extension ForecastDayDTO {
             date: date ?? "",
             maxTempC: day?.maxtemp_c ?? 0,
             minTempC: day?.mintemp_c ?? 0,
+            averageTempC: day?.avgtemp_c ?? 0,
             conditionText: day?.condition?.text ?? "",
             conditionIconURL: "https:" + (day?.condition?.icon ?? ""),
+            sunrise: astro?.sunrise ?? "",
+            sunset: astro?.sunset ?? "",
             hours: hour?.map { $0.toDomain() } ?? []
         )
     }

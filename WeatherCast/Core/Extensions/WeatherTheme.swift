@@ -10,6 +10,10 @@ enum WeatherTheme {
     case morning
     case evening
 
+    init(isDay: Bool) {
+        self = isDay ? .morning : .evening
+    }
+
     static var current: WeatherTheme {
         let hour = Calendar.current.component(.hour, from: Date())
         return (hour >= 5 && hour < 18) ? .morning : .evening

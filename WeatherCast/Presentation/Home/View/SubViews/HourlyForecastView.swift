@@ -7,65 +7,59 @@
 import SwiftUI
 
 struct HourlyForecastView: View {
-    let day: ForecastDayEntity
-    @Environment(\.weatherTheme) private var theme
+    @State var viewModel: HourlyForecastViewModel
+    @State private var summaryHeight: CGFloat = 0
+    @State private var showsCompactHeader = false
+
     @Environment(LocaleManager.self) private var localeManager
-    
-    private var hours: [HourEntity] {
-        let now = Int(Date().timeIntervalSince1970)
-        return day.hours.filter { $0.timeEpoch >= now }
-    }
 
     var body: some View {
         ZStack {
-            Image(theme.backgroundImage)
+            Image(viewModel.theme.backgroundImage)
                 .resizable()
                 .ignoresSafeArea()
 
-            List {
-                ForEach(Array(hours.enumerated()), id: \.element.timeEpoch) { index, hour in
-                    HStack(spacing: 20) {
-                        Text(formattedTime(from: hour.timeEpoch, isFirst: index == 0))
-                            .frame(width: 55, alignment: .leading)
-                            .font(.title3).fontWeight(.medium)
-
-                        AsyncImage(url: URL(string: hour.conditionIconURL)) { image in
-                            image.resizable().scaledToFit().frame(width: 36, height: 36)
-                        } placeholder: {
-                            Color.clear.frame(width: 36, height: 36)
+            ScrollView {
+                VStack(spacing: 16) {
+                    DailyForecastSummaryView(viewModel: viewModel)
+                        .onGeometryChange(for: CGFloat.self) { geometry in
+                            geometry.size.height
+                        } action: { height in
+                            summaryHeight = height
                         }
 
-                        Spacer()
-
-                        Text(l10n.celsius(Int(hour.tempC)))
-                            .font(.title2).bold()
-                    }
-                    .foregroundColor(theme.foregroundColor)
-                    .listRowBackground(Color.clear)
+                    HourlyForecastListView(viewModel: viewModel)
+                }
+                .padding()
+            }
+            .onScrollGeometryChange(for: Bool.self) { geometry in
+                let scrollOffset = geometry.contentOffset.y
+                    + geometry.contentInsets.top
+                return scrollOffset > summaryHeight + 16
+            } action: { _, isCompact in
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    showsCompactHeader = isCompact
                 }
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
+            .overlay(alignment: .top) {
+                if showsCompactHeader {
+                    CompactDailyForecastHeaderView(viewModel: viewModel)
+                        .padding(.horizontal)
+                        .padding(.top, 8)
+                        .transition(
+                            .move(edge: .top)
+                                .combined(with: .opacity)
+                        )
+                }
+            }
         }
+        .environment(\.weatherTheme, viewModel.theme)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(day.date)
-                    .foregroundColor(theme.foregroundColor)
+                Text(viewModel.formattedDate(locale: localeManager.locale))
+                    .foregroundColor(viewModel.theme.foregroundColor)
             }
         }
-    }
-
-    private func formattedTime(from epoch: Int, isFirst: Bool) -> String {
-        if isFirst { return l10n.now }
-        let date = Date(timeIntervalSince1970: TimeInterval(epoch))
-        let formatter = DateFormatter()
-        formatter.locale = localeManager.locale
-        formatter.dateFormat = "ha"
-        return formatter.string(from: date)
-    }
-
-    private var l10n: L10n {
-        L10n(locale: localeManager.locale)
     }
 }

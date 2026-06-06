@@ -15,6 +15,17 @@ struct ViewModelResolver {
         container.resolve(HomeViewModel.self)
     }
 
+    func hourlyForecast(
+        day: ForecastDayEntity,
+        isDay: Bool
+    ) -> HourlyForecastViewModel {
+        container.resolve(
+            HourlyForecastViewModel.self,
+            arguments: day,
+            isDay
+        )
+    }
+
     func map(onLocationSaved: @escaping () -> Void) -> MapViewModel {
         container.resolve(MapViewModel.self, argument: onLocationSaved)
     }

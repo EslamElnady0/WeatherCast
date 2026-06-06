@@ -43,15 +43,10 @@ struct ForecastRowView: View {
     }
 
     private func dayName(from dateString: String) -> String {
-        let inputFormatter = DateFormatter()
-        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
-        inputFormatter.dateFormat = "yyyy-MM-dd"
-        guard let date = inputFormatter.date(from: dateString) else { return dateString }
-
-        let displayFormatter = DateFormatter()
-        displayFormatter.locale = localeManager.locale
-        displayFormatter.dateFormat = "EEE"
-        return displayFormatter.string(from: date)
+        WeatherDateFormatter.weekday(
+            from: dateString,
+            locale: localeManager.locale
+        )
     }
 
     private var l10n: L10n {

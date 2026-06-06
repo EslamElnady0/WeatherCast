@@ -17,6 +17,15 @@ struct ViewFactory {
         HomeView(viewModel: resolver.home())
     }
 
+    func hourlyForecast(
+        day: ForecastDayEntity,
+        isDay: Bool
+    ) -> HourlyForecastView {
+        HourlyForecastView(
+            viewModel: resolver.hourlyForecast(day: day, isDay: isDay)
+        )
+    }
+
     func map(onLocationSaved: @escaping () -> Void) -> MapView {
         MapView(
             viewModel: resolver.map(onLocationSaved: onLocationSaved)

@@ -6,6 +6,7 @@
 
 struct WeatherEntity {
     let locationName: String
+    let localTime: String
     let lat: Double
     let lng: Double
     let tempC: Double

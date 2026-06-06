@@ -15,6 +15,10 @@ final class PresentationAssembly: Assembly {
             )
         }
 
+        container.register(HourlyForecastViewModel.self) { _, day, isDay in
+            HourlyForecastViewModel(day: day, isDay: isDay)
+        }
+
         container.register(MapViewModel.self) { resolver, onLocationSaved in
             MapViewModel(
                 mapUseCase: resolver.resolve(MapUseCaseProtocol.self)!,

@@ -10,7 +10,6 @@ struct HomeView: View {
     @State var viewModel: HomeViewModel
     @Environment(\.viewFactory) private var viewFactory
     @Environment(LocaleManager.self) private var localeManager
-    @Environment(\.weatherTheme) private var theme
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
@@ -51,6 +50,7 @@ struct HomeView: View {
                 forecastPager
             }
         }
+        .environment(\.weatherTheme, theme)
         .task {
             await viewModel.loadAll()
         }
@@ -98,6 +98,16 @@ struct HomeView: View {
 
     private var l10n: L10n {
         L10n(locale: localeManager.locale)
+    }
+
+    private var theme: WeatherTheme {
+        guard viewModel.forecasts.indices.contains(viewModel.currentPageIndex) else {
+            return .current
+        }
+
+        return WeatherTheme(
+            isDay: viewModel.forecasts[viewModel.currentPageIndex].location.isDay
+        )
     }
 
     private var forecastPager: some View {

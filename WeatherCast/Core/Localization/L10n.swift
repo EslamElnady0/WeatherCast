@@ -17,6 +17,9 @@ struct L10n {
     var feelsLike: String { localized("home.feelsLike") }
     var pressure: String { localized("home.pressure") }
     var now: String { localized("hourly.now") }
+    var averageTemperature: String { localized("hourly.average") }
+    var sunrise: String { localized("hourly.sunrise") }
+    var sunset: String { localized("hourly.sunset") }
     var mapTitle: String { localized("map.title") }
     var selectedLocation: String { localized("map.selectedLocation") }
     var searchPlaceholder: String { localized("map.searchPlaceholder") }

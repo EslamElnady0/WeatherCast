@@ -41,4 +41,21 @@ final class AppContainer {
         }
         return value
     }
+
+    func resolve<T, Argument1, Argument2>(
+        _ type: T.Type,
+        arguments argument1: Argument1,
+        _ argument2: Argument2
+    ) -> T {
+        guard let value = container.resolve(
+            type,
+            arguments: argument1,
+            argument2
+        ) else {
+            fatalError(
+                "Swinject: \(type) is not registered for \(Argument1.self), \(Argument2.self)."
+            )
+        }
+        return value
+    }
 }

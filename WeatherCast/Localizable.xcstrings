@@ -315,6 +315,22 @@
         }
       }
     },
+    "hourly.average" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المتوسط"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AVERAGE"
+          }
+        }
+      }
+    },
     "hourly.now" : {
       "localizations" : {
         "ar" : {
@@ -327,6 +343,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Now"
+          }
+        }
+      }
+    },
+    "hourly.sunrise" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الشروق"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SUNRISE"
+          }
+        }
+      }
+    },
+    "hourly.sunset" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الغروب"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SUNSET"
           }
         }
       }
