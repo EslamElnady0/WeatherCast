@@ -64,7 +64,7 @@ struct L10n {
     }
 
     func pressureValue(_ value: Int) -> String {
-        number(value)
+        formatted("unit.pressure", number(value))
     }
 
     func temperatureRange(min: Int, max: Int) -> String {

@@ -741,6 +741,22 @@
         }
       }
     },
+    "unit.pressure" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ه.ب"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ hPa"
+          }
+        }
+      }
+    },
     "unit.temperatureRange" : {
       "localizations" : {
         "ar" : {
