@@ -9,25 +9,25 @@ import Foundation
 final class WeatherRepositoryImpl: WeatherRepositoryProtocol {
     private let remote: WeatherRemoteDataSourceProtocol
     private let local: WeatherLocalDataSourceProtocol
-    private let network: NetworkMonitor
+    private let connectivityMonitor: InternetConnectivityMonitor
     private let localeManager: LocaleManager
 
     init(
         remote: WeatherRemoteDataSourceProtocol,
         local: WeatherLocalDataSourceProtocol,
-        network: NetworkMonitor,
+        connectivityMonitor: InternetConnectivityMonitor,
         localeManager: LocaleManager
     ) {
         self.remote = remote
         self.local = local
-        self.network = network
+        self.connectivityMonitor = connectivityMonitor
         self.localeManager = localeManager
     }
 
     func getForecast(lat: Double, lng: Double) async throws -> ForecastEntity {
         let key = "\(lat),\(lng),\(localeManager.apiLanguage)"
 
-        if network.isConnected {
+        if connectivityMonitor.isConnected {
             let dto = try await remote.fetchForecast(lat: lat, lng: lng)
             try? local.saveForecast(dto, for: key)
             return dto.toDomain()

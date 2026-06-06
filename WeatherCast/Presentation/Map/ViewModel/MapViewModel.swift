@@ -89,7 +89,7 @@ final class MapViewModel {
                 send(.searchResultsLoaded(results))
             } catch {
                 guard !Task.isCancelled else { return }
-                send(.searchFailed)
+                send(.searchFailed(error.localizedDescription))
             }
         }
     }

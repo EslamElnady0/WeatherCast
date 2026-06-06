@@ -22,6 +22,7 @@ struct MapViewState {
     var isSheetPresented: Bool = false
     var searchQuery: String = ""
     var searchResults: [SearchResultEntity] = []
+    var searchErrorMessage: String?
     var isSearching: Bool = false
     var shouldDismiss: Bool = false
     var requestedRegion: MKCoordinateRegion?
@@ -39,7 +40,7 @@ enum MapViewAction {
     case previewLoaded(ForecastEntity, isAlreadySaved: Bool)
     case previewFailed(String)
     case searchResultsLoaded([SearchResultEntity])
-    case searchFailed
+    case searchFailed(String)
     case favouriteSaved
     case favouriteAlreadySaved
     case favouriteFailed(String)
@@ -80,6 +81,7 @@ enum MapViewStateHandler {
         case .searchResultSelected(let result):
             state.searchQuery = ""
             state.searchResults = []
+            state.searchErrorMessage = nil
             state.isSearching = false
 
             let coordinate = CLLocationCoordinate2D(latitude: result.lat, longitude: result.lng)
@@ -88,6 +90,7 @@ enum MapViewStateHandler {
             return [.cancelSearch, .previewForecast(coordinate)]
         case .searchQueryChanged(let query):
             state.searchQuery = query
+            state.searchErrorMessage = nil
 
             guard query.count >= 2 else {
                 state.searchResults = []
@@ -110,9 +113,11 @@ enum MapViewStateHandler {
             state.previewState = .error(message)
         case .searchResultsLoaded(let results):
             state.searchResults = results
+            state.searchErrorMessage = nil
             state.isSearching = false
-        case .searchFailed:
+        case .searchFailed(let message):
             state.searchResults = []
+            state.searchErrorMessage = message
             state.isSearching = false
         case .favouriteSaved:
             state.isSheetPresented = false

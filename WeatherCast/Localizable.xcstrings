@@ -379,6 +379,22 @@
         }
       }
     },
+    "network.offline" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد اتصال بالإنترنت."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No internet connection."
+          }
+        }
+      }
+    },
     "location.enable" : {
       "localizations" : {
         "ar" : {
@@ -519,6 +535,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Loading weather..."
+          }
+        }
+      }
+    },
+    "map.search.failure.title" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذر البحث عن المدن"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "City search unavailable"
           }
         }
       }

@@ -38,6 +38,9 @@ struct MapView: View {
 
                 if !viewModel.state.searchResults.isEmpty {
                     searchResultsList
+                } else if let message = viewModel.state.searchErrorMessage {
+                    CitySearchFailureView(message: message)
+                        .padding(.top, 8)
                 }
             }
             .padding(.horizontal)

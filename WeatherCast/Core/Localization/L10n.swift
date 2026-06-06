@@ -23,6 +23,7 @@ struct L10n {
     var mapTitle: String { localized("map.title") }
     var selectedLocation: String { localized("map.selectedLocation") }
     var searchPlaceholder: String { localized("map.searchPlaceholder") }
+    var citySearchFailureTitle: String { localized("map.search.failure.title") }
     var addToFavourites: String { localized("map.addToFav") }
     var alreadySaved: String { localized("map.alreadySaved") }
     var loadingWeather: String { localized("map.loading") }
@@ -48,6 +49,7 @@ struct L10n {
     var apply: String { localized("common.apply") }
     var delete: String { localized("common.delete") }
     var ok: String { localized("common.ok") }
+    var offlineMessage: String { localized("network.offline") }
 
     func km(_ value: Int) -> String {
         formatted("unit.km", number(value))

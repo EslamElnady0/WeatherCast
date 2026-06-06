@@ -13,8 +13,8 @@ final class NetworkAssembly: Assembly {
         }
         .inObjectScope(.container)
 
-        container.register(NetworkMonitor.self) { _ in
-            NetworkMonitor()
+        container.register(InternetConnectivityMonitor.self) { _ in
+            InternetConnectivityMonitor()
         }
         .inObjectScope(.container)
     }

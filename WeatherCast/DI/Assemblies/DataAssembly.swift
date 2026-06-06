@@ -40,7 +40,7 @@ final class DataAssembly: Assembly {
             WeatherRepositoryImpl(
                 remote: resolver.resolve(WeatherRemoteDataSourceProtocol.self)!,
                 local: resolver.resolve(WeatherLocalDataSourceProtocol.self)!,
-                network: resolver.resolve(NetworkMonitor.self)!,
+                connectivityMonitor: resolver.resolve(InternetConnectivityMonitor.self)!,
                 localeManager: resolver.resolve(LocaleManager.self)!
             )
         }
