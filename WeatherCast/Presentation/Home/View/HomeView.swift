@@ -108,9 +108,12 @@ struct HomeView: View {
 
     private var forecastPager: some View {
         TabView(selection: $viewModel.currentPageIndex) {
-            ForEach(viewModel.forecasts.indices, id: \.self) { index in
-                WeatherPageView(forecast: viewModel.forecasts[index])
-                .tag(index)
+            ForEach(
+                Array(viewModel.forecasts.enumerated()),
+                id: \.offset
+            ) { index, forecast in
+                WeatherPageView(forecast: forecast)
+                    .tag(index)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .always))

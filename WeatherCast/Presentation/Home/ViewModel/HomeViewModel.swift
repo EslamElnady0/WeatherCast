@@ -45,8 +45,8 @@ final class HomeViewModel {
         case .failed(let message):
             state = .error(message)
         case .loaded(let forecasts):
-            self.forecasts = forecasts
             currentPageIndex = min(currentPageIndex, max(forecasts.count - 1, 0))
+            self.forecasts = forecasts
             state = .loaded
         }
     }
