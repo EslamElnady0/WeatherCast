@@ -26,40 +26,10 @@ struct SavedLocationsView: View {
     }
 
     var body: some View {
-        List {
-            switch viewModel.state {
-            case .idle, .loading:
-                ProgressView()
-                    .controlSize(.large)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 72)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-            case .empty:
-                SavedLocationsEmptyView()
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-            case .loaded:
-                ForEach(viewModel.rows) { row in
-                    SavedLocationCardView(row: row) {
-                        select(row)
-                    }
-                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .swipeActions {
-                        Button(role: .destructive) {
-                            pendingDeletion = row
-                        } label: {
-                            Label(l10n.delete, systemImage: "trash")
-                        }
-                    }
-                }
-            }
+        ZStack {
+            background
+            content
         }
-        .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-        .background(background)
         .navigationTitle(l10n.savedLocationsTitle)
         .navigationBarTitleDisplayMode(.inline)
         .task {
@@ -87,6 +57,49 @@ struct SavedLocationsView: View {
         } message: {
             Text(viewModel.deletionErrorMessage ?? "")
         }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        switch viewModel.state {
+        case .idle, .loading:
+            ProgressView()
+                .controlSize(.large)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .empty:
+            SavedLocationsEmptyView()
+        case .loaded:
+            locationsList
+        }
+    }
+
+    private var locationsList: some View {
+        List {
+            ForEach(viewModel.rows) { row in
+                SavedLocationCardView(row: row) {
+                    select(row)
+                }
+                .listRowInsets(
+                    EdgeInsets(
+                        top: 6,
+                        leading: 16,
+                        bottom: 6,
+                        trailing: 16
+                    )
+                )
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+                .swipeActions {
+                    Button(role: .destructive) {
+                        pendingDeletion = row
+                    } label: {
+                        Label(l10n.delete, systemImage: "trash")
+                    }
+                }
+            }
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
     }
 
     private func select(_ row: SavedLocationRow) {

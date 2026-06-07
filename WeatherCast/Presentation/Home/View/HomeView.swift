@@ -35,7 +35,7 @@ struct HomeView: View {
                 )
             case .empty:
                 HomeStateMessageView(
-                    systemImage: "cloud",
+                    imageName: "home_empty_illustration",
                     title: l10n.emptyWeatherTitle,
                     message: l10n.emptyWeatherBody,
                     retryTitle: l10n.retry,
@@ -43,7 +43,7 @@ struct HomeView: View {
                 )
             case .error(let message):
                 HomeStateMessageView(
-                    systemImage: "exclamationmark.triangle",
+                    imageName: "home_error_illustration",
                     title: l10n.weatherUnavailableTitle,
                     message: message,
                     retryTitle: l10n.retry,

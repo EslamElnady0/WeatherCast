@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct HomeStateMessageView: View {
-    let systemImage: String
+    let imageName: String
     let title: String
     let message: String
     let retryTitle: String
@@ -18,7 +18,7 @@ struct HomeStateMessageView: View {
     var body: some View {
         VStack {
             VStack(spacing: 24) {
-                stateSymbol
+                stateIllustration
 
                 VStack(spacing: 10) {
                     Text(title)
@@ -57,20 +57,12 @@ struct HomeStateMessageView: View {
         .padding(.vertical, 32)
     }
 
-    private var stateSymbol: some View {
-        ZStack {
-            Circle()
-                .fill(theme.foregroundColor.opacity(0.12))
-
-            Circle()
-                .stroke(theme.foregroundColor.opacity(0.18), lineWidth: 1)
-
-            Image(systemName: systemImage)
-                .font(.system(size: 38, weight: .semibold))
-                .symbolRenderingMode(.hierarchical)
-        }
-        .frame(width: 88, height: 88)
-        .accessibilityHidden(true)
+    private var stateIllustration: some View {
+        Image(imageName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 156, height: 156)
+            .accessibilityHidden(true)
     }
 }
 

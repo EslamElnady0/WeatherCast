@@ -22,7 +22,7 @@ struct NoLocationView: View {
     var body: some View {
         VStack {
             VStack(spacing: 24) {
-                locationSymbol
+                locationIllustration
 
                 VStack(spacing: 10) {
                     Text(title)
@@ -61,20 +61,12 @@ struct NoLocationView: View {
         .padding(.vertical, 32)
     }
 
-    private var locationSymbol: some View {
-        ZStack {
-            Circle()
-                .fill(theme.foregroundColor.opacity(0.12))
-
-            Circle()
-                .stroke(theme.foregroundColor.opacity(0.18), lineWidth: 1)
-
-            Image(systemName: "location.slash.fill")
-                .font(.system(size: 38, weight: .semibold))
-                .symbolRenderingMode(.hierarchical)
-        }
-        .frame(width: 88, height: 88)
-        .accessibilityHidden(true)
+    private var locationIllustration: some View {
+        Image("no_location_illustration")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 156, height: 156)
+            .accessibilityHidden(true)
     }
 
     @ViewBuilder
