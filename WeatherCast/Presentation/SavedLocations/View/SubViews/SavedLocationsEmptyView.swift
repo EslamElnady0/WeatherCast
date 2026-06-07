@@ -44,7 +44,6 @@ struct SavedLocationsEmptyView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 20)
         .padding(.vertical, 32)
-        .accessibilityElement(children: .combine)
     }
 
     private var l10n: L10n {

@@ -9,10 +9,12 @@ import SwiftUI
 struct SavedLocationsView: View {
     @State private var viewModel: SavedLocationsViewModel
     @State private var pendingDeletion: SavedLocationRow?
+    @State private var isMapPresented = false
     let onSelect: (LocationCoordinateEntity) -> Void
     let onLocationsChanged: () -> Void
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.viewFactory) private var viewFactory
     @Environment(LocaleManager.self) private var localeManager
 
     init(
@@ -32,6 +34,24 @@ struct SavedLocationsView: View {
         }
         .navigationTitle(l10n.savedLocationsTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    isMapPresented = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+                .accessibilityLabel(l10n.mapTitle)
+            }
+        }
+        .sheet(isPresented: $isMapPresented) {
+            NavigationStack {
+                viewFactory.map(onLocationSaved: locationSaved)
+            }
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
+            .presentationCornerRadius(28)
+        }
         .task {
             await viewModel.load()
         }
@@ -116,6 +136,13 @@ struct SavedLocationsView: View {
     private func remove(_ row: SavedLocationRow) {
         guard viewModel.remove(row) else { return }
         onLocationsChanged()
+    }
+
+    private func locationSaved() {
+        onLocationsChanged()
+        Task {
+            await viewModel.load()
+        }
     }
 
     private var deletionConfirmationBinding: Binding<Bool> {
