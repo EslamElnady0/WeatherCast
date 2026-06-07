@@ -25,14 +25,14 @@ struct WeatherBackgroundView<Content: View>: View {
 
     var body: some View {
         ZStack {
-            fallbackImage
+            //fallbackImage
 
-            if !reduceMotion {
+            //if !reduceMotion {
                 LoopingVideoView(
                     resourceName: weatherCondition.videoName(for: theme)
                 )
                 .ignoresSafeArea()
-            }
+           // }
 
             content
         }

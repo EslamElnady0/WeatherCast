@@ -119,12 +119,17 @@ final class LoopingPlayerView: UIView {
 }
 
 private final class PlayerSlot {
-    let player = AVQueuePlayer()
+    private static let turnAroundMargin = 0.1
+
+    let player = AVPlayer()
     let playerLayer: AVPlayerLayer
 
     private(set) var resourceName: String?
-    private var playerLooper: AVPlayerLooper?
+    private var playbackRate: Float = 1
+    private var shouldPlay = true
     private var readyForDisplayObservation: NSKeyValueObservation?
+    private var endObserver: NSObjectProtocol?
+    private var timeObserver: Any?
     private var onReady: ((String) -> Void)?
 
     init() {
@@ -154,17 +159,21 @@ private final class PlayerSlot {
         self.onReady = onReady
 
         let item = AVPlayerItem(url: url)
-        playerLooper = AVPlayerLooper(player: player, templateItem: item)
+        player.replaceCurrentItem(with: item)
+        observePlayback(of: item)
+        shouldPlay = true
         player.play()
         notifyIfReady()
     }
 
     func play() {
         guard resourceName != nil else { return }
-        player.play()
+        shouldPlay = true
+        player.playImmediately(atRate: playbackRate)
     }
 
     func pause() {
+        shouldPlay = false
         player.pause()
     }
 
@@ -172,9 +181,76 @@ private final class PlayerSlot {
         onReady = nil
         resourceName = nil
         player.pause()
-        player.removeAllItems()
-        playerLooper = nil
+        removePlaybackObservers()
+        player.replaceCurrentItem(with: nil)
+        playbackRate = 1
         playerLayer.opacity = 0
+    }
+
+    private func observePlayback(of item: AVPlayerItem) {
+        endObserver = NotificationCenter.default.addObserver(
+            forName: .AVPlayerItemDidPlayToEndTime,
+            object: item,
+            queue: .main
+        ) { [weak self] _ in
+            self?.playInReverse()
+        }
+
+        let interval = CMTime(value: 1, timescale: 30)
+        timeObserver = player.addPeriodicTimeObserver(
+            forInterval: interval,
+            queue: .main
+        ) { [weak self] time in
+            self?.updatePlaybackDirection(at: time)
+        }
+    }
+
+    private func playInReverse() {
+        guard let item = player.currentItem,
+              item.canPlayReverse else {
+            restartForwardPlayback()
+            return
+        }
+
+        playbackRate = -1
+        if shouldPlay {
+            player.playImmediately(atRate: playbackRate)
+        }
+    }
+
+    private func updatePlaybackDirection(at time: CMTime) {
+        guard let item = player.currentItem,
+              item.duration.isNumeric else {
+            return
+        }
+
+        if playbackRate > 0 {
+            let remainingTime = item.duration.seconds - time.seconds
+            if remainingTime <= Self.turnAroundMargin {
+                playInReverse()
+            }
+        } else if time.seconds <= Self.turnAroundMargin {
+            restartForwardPlayback()
+        }
+    }
+
+    private func restartForwardPlayback() {
+        playbackRate = 1
+        if shouldPlay {
+            player.playImmediately(atRate: playbackRate)
+        }
+    }
+
+    private func removePlaybackObservers() {
+        if let endObserver {
+            NotificationCenter.default.removeObserver(endObserver)
+            self.endObserver = nil
+        }
+
+        if let timeObserver {
+            player.removeTimeObserver(timeObserver)
+            self.timeObserver = nil
+        }
     }
 
     private func notifyIfReady() {
@@ -186,5 +262,9 @@ private final class PlayerSlot {
 
         self.onReady = nil
         onReady(resourceName)
+    }
+
+    deinit {
+        removePlaybackObservers()
     }
 }
