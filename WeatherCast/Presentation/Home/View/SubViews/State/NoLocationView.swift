@@ -10,7 +10,9 @@ struct NoLocationView: View {
     let title: String
     let message: String
     let primaryAction: PrimaryAction
+
     @Environment(LocaleManager.self) private var localeManager
+    @Environment(\.weatherTheme) private var theme
 
     enum PrimaryAction {
         case requestPermission(() -> Void)
@@ -18,41 +20,102 @@ struct NoLocationView: View {
     }
 
     var body: some View {
-        VStack(spacing: 24) {
-            Image(systemName: "location.slash.fill")
-                .font(.system(size: 64))
-                .foregroundColor(.gray)
-            Text(title)
-                .font(.title2).bold()
-            Text(message)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
+        VStack {
+            VStack(spacing: 24) {
+                locationSymbol
 
-            switch primaryAction {
-            case .requestPermission(let action):
-                Button(action: action) {
-                    Label(l10n.enableLocation, systemImage: "location.fill")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
+                VStack(spacing: 10) {
+                    Text(title)
+                        .font(.title2)
+                        .fontWeight(.bold)
+
+                    Text(message)
+                        .font(.body)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(theme.foregroundColor.opacity(0.75))
+                        .fixedSize(horizontal: false, vertical: true)
                 }
-            case .openSettings:
-                Link(destination: settingsURL) {
-                    Label(l10n.openSettings, systemImage: "gear")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
+
+                VStack(spacing: 10) {
+                    primaryButton
+
+                    if case .requestPermission = primaryAction {
+                        settingsButton(isPrimary: false)
+                    }
                 }
             }
-
-            if case .requestPermission = primaryAction {
-                Link(l10n.openSettings, destination: settingsURL)
-                    .foregroundColor(.blue)
+            .foregroundStyle(theme.foregroundColor)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 30)
+            .background(.ultraThinMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    .stroke(theme.foregroundColor.opacity(0.14), lineWidth: 1)
             }
+            .shadow(color: .black.opacity(0.18), radius: 24, y: 12)
+            .frame(maxWidth: 420)
         }
-        .padding(32)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 32)
+    }
+
+    private var locationSymbol: some View {
+        ZStack {
+            Circle()
+                .fill(theme.foregroundColor.opacity(0.12))
+
+            Circle()
+                .stroke(theme.foregroundColor.opacity(0.18), lineWidth: 1)
+
+            Image(systemName: "location.slash.fill")
+                .font(.system(size: 38, weight: .semibold))
+                .symbolRenderingMode(.hierarchical)
+        }
+        .frame(width: 88, height: 88)
+        .accessibilityHidden(true)
+    }
+
+    @ViewBuilder
+    private var primaryButton: some View {
+        switch primaryAction {
+        case .requestPermission(let action):
+            Button(action: action) {
+                actionLabel(
+                    l10n.enableLocation,
+                    systemImage: "location.fill"
+                )
+            }
+            .buttonStyle(PrimaryLocationButtonStyle(theme: theme))
+        case .openSettings:
+            settingsButton(isPrimary: true)
+        }
+    }
+
+    @ViewBuilder
+    private func settingsButton(isPrimary: Bool) -> some View {
+        if isPrimary {
+            Link(destination: settingsURL) {
+                actionLabel(l10n.openSettings, systemImage: "gearshape.fill")
+            }
+            .buttonStyle(PrimaryLocationButtonStyle(theme: theme))
+        } else {
+            Link(destination: settingsURL) {
+                actionLabel(l10n.openSettings, systemImage: "gearshape.fill")
+            }
+            .buttonStyle(SecondaryLocationButtonStyle(theme: theme))
+        }
+    }
+
+    private func actionLabel(
+        _ title: String,
+        systemImage: String
+    ) -> some View {
+        Label(title, systemImage: systemImage)
+            .font(.headline)
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: 50)
     }
 
     private var settingsURL: URL {
@@ -61,5 +124,52 @@ struct NoLocationView: View {
 
     private var l10n: L10n {
         L10n(locale: localeManager.locale)
+    }
+}
+
+private struct PrimaryLocationButtonStyle: ButtonStyle {
+    let theme: WeatherTheme
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(primaryForegroundColor)
+            .background(
+                theme.foregroundColor.opacity(
+                    configuration.isPressed ? 0.78 : 0.92
+                ),
+                in: RoundedRectangle(cornerRadius: 15, style: .continuous)
+            )
+            .scaleEffect(configuration.isPressed ? 0.98 : 1)
+            .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
+    }
+
+    private var primaryForegroundColor: Color {
+        switch theme {
+        case .morning:
+            return .white
+        case .evening:
+            return .black
+        }
+    }
+}
+
+private struct SecondaryLocationButtonStyle: ButtonStyle {
+    let theme: WeatherTheme
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(theme.foregroundColor)
+            .background(
+                theme.foregroundColor.opacity(
+                    configuration.isPressed ? 0.16 : 0.08
+                ),
+                in: RoundedRectangle(cornerRadius: 15, style: .continuous)
+            )
+            .overlay {
+                RoundedRectangle(cornerRadius: 15, style: .continuous)
+                    .stroke(theme.foregroundColor.opacity(0.16), lineWidth: 1)
+            }
+            .scaleEffect(configuration.isPressed ? 0.98 : 1)
+            .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
     }
 }

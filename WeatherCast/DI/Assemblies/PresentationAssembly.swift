@@ -11,7 +11,10 @@ final class PresentationAssembly: Assembly {
         
         container.register(HomeViewModel.self) { resolver in
             HomeViewModel(
-                homeUseCase: resolver.resolve(HomeUseCaseProtocol.self)!
+                homeUseCase: resolver.resolve(HomeUseCaseProtocol.self)!,
+                connectivityMonitor: resolver.resolve(
+                    InternetConnectivityMonitor.self
+                )!
             )
         }
 

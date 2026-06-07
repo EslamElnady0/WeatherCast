@@ -24,12 +24,26 @@ final class HomeViewModel {
     var currentPageIndex: Int = 0
 
     private let homeUseCase: HomeUseCaseProtocol
+    private let connectivityMonitor: InternetConnectivityMonitor
+    private var isLoading = false
 
-    init(homeUseCase: HomeUseCaseProtocol) {
+    init(
+        homeUseCase: HomeUseCaseProtocol,
+        connectivityMonitor: InternetConnectivityMonitor
+    ) {
         self.homeUseCase = homeUseCase
+        self.connectivityMonitor = connectivityMonitor
+    }
+
+    var isConnected: Bool {
+        connectivityMonitor.isConnected
     }
 
     func loadAll() async {
+        guard !isLoading else { return }
+        isLoading = true
+        defer { isLoading = false }
+
         state = .loading
         apply(await homeUseCase.loadHome())
     }
@@ -53,6 +67,10 @@ final class HomeViewModel {
 
     func requestLocationPermission() {
         Task {
+            guard !isLoading else { return }
+            isLoading = true
+            defer { isLoading = false }
+
             state = .loading
             apply(await homeUseCase.requestLocationPermission())
         }

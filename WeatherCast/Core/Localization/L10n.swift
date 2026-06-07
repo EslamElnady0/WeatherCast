@@ -49,6 +49,7 @@ struct L10n {
     var apply: String { localized("common.apply") }
     var delete: String { localized("common.delete") }
     var ok: String { localized("common.ok") }
+    var retry: String { localized("common.retry") }
     var offlineMessage: String { localized("network.offline") }
 
     func km(_ value: Int) -> String {

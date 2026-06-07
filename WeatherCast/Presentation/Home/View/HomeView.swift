@@ -37,13 +37,17 @@ struct HomeView: View {
                 HomeStateMessageView(
                     systemImage: "cloud",
                     title: l10n.emptyWeatherTitle,
-                    message: l10n.emptyWeatherBody
+                    message: l10n.emptyWeatherBody,
+                    retryTitle: l10n.retry,
+                    onRetry: retry
                 )
             case .error(let message):
                 HomeStateMessageView(
                     systemImage: "exclamationmark.triangle",
                     title: l10n.weatherUnavailableTitle,
-                    message: message
+                    message: message,
+                    retryTitle: l10n.retry,
+                    onRetry: retry
                 )
             case .loaded:
                 forecastPager
@@ -56,6 +60,10 @@ struct HomeView: View {
         .onChange(of: scenePhase) { _, newPhase in
             guard newPhase == .active else { return }
             Task { await viewModel.loadAll() }
+        }
+        .onChange(of: viewModel.isConnected) { wasConnected, isConnected in
+            guard !wasConnected, isConnected else { return }
+            retry()
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -97,6 +105,10 @@ struct HomeView: View {
 
     private var l10n: L10n {
         L10n(locale: localeManager.locale)
+    }
+
+    private func retry() {
+        Task { await viewModel.loadAll() }
     }
 
     private var theme: WeatherTheme {
